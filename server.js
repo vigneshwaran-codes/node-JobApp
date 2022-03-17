@@ -86,6 +86,7 @@ async function getJobs (client) {
   console.log('Successfully Connected', result)
   return result
 }
+
 createConnection()
 
 // Home
@@ -102,6 +103,16 @@ app.get('/jobs', async (request, response) => {
   response.send(opening)
 })
 
+// Role
+app.get('/jobs/Role/:search', async (request, response) => {
+  const search = request.params.search
+  const client = await createConnection()
+  const openings = await getJobs(client, {
+    Role: { $regex: search, $options: 'i' }
+  })
+  response.send(openings)
+})
+
 // Job seeker
 app.get('/jobseeker', async (request, response) => {
   const client = await createConnection()
@@ -112,7 +123,7 @@ app.get('/jobseeker', async (request, response) => {
 app.get('/jobseeker/:id', async (request, response) => {
   const id = request.params.id
   const client = await createConnection()
-  const application = await getJobSeekerById(client, id)
+  const application = await getJobSeekerById(client, +id)
   response.send(application)
 })
 // Recruiter
