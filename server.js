@@ -2,10 +2,10 @@
 // const { MongoClient } = require('mongodb')
 import express from 'express'
 import { MongoClient } from 'mongodb'
-import bcrypt from 'bcrypt'
 import { jobsRouter } from './routes/job.js'
 import { jobseekerRouter } from './routes/jobseeker.js'
 import { recruiterRouter } from './routes/recruiter.js'
+import { userRouter } from './routes/user.js'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -37,6 +37,8 @@ export async function createConnection () {
 app.use('/jobs', jobsRouter)
 app.use('/jobseeker', jobseekerRouter)
 app.use('/recruiter', recruiterRouter)
+// signup
+app.use('/user', userRouter)
 
 // Home
 app.get('/', (request, response) => {
@@ -44,10 +46,3 @@ app.get('/', (request, response) => {
 })
 
 app.listen(PORT, () => console.log('The Server is Started', PORT))
-
-async function genPassword (password) {
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await bcrypt.hash(password, salt)
-  console.log(hashedPassword)
-}
-genPassword('password@123')

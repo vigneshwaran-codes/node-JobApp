@@ -29,6 +29,15 @@ export async function insertJobs (client, job) {
   return result
 }
 
+export async function insertUser (client, user) {
+  const result = await client
+    .db('job-app')
+    .collection('users')
+    .insertOne(user)
+  console.log('Inserted Successfully', result)
+  return result
+}
+
 // DeleteJobsById
 export async function deleteJobsById (client, id) {
   const result = await client
@@ -97,6 +106,25 @@ export async function getJobs (client) {
     .collection('jobs')
     .find({})
     .toArray()
+  console.log('Successfully Connected', result)
+  return result
+}
+
+export async function getUsers (client) {
+  const result = await client
+    .db('job-app')
+    .collection('users')
+    .find({})
+    .toArray()
+  console.log('Successfully Connected', result)
+  return result
+}
+
+export async function getUser (client, filter) {
+  const result = await client
+    .db('job-app')
+    .collection('users')
+    .findOne(filter)
   console.log('Successfully Connected', result)
   return result
 }
