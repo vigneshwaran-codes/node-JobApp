@@ -53,7 +53,7 @@ export async function updateJobsById (client, id, newJob) {
   const result = await client
     .db('job-app')
     .collection('jobs')
-    .UpdateOne({ id: id }, { $set: newJob })
+    .updateOne({ id: id }, { $set: newJob })
   console.log('Successfully connected', result)
   return result
 }

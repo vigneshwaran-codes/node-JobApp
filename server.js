@@ -6,6 +6,7 @@ import { jobsRouter } from './routes/job.js'
 import { jobseekerRouter } from './routes/jobseeker.js'
 import { recruiterRouter } from './routes/recruiter.js'
 import { userRouter } from './routes/user.js'
+import cors from 'cors'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -16,6 +17,7 @@ const PORT = process.env.PORT
 
 // Middleware
 app.use(express.json())
+app.use(cors())
 
 export async function createConnection () {
   const MONGO_URL = process.env.MONGO_URI

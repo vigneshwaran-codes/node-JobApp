@@ -3,6 +3,7 @@ import { createConnection } from '../server.js'
 import { getUser, getUsers, insertUser } from '../db.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { auth } from '../middleware/auth.js'
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ router
     response.send(newUser)
   })
 
-router.get('/candidate', async (request, response) => {
+router.get('/candidate', auth, async (request, response) => {
   const client = await createConnection()
   const users = await getUsers(client)
   response.send(users)
